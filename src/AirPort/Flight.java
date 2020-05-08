@@ -4,7 +4,7 @@ import java.time.LocalTime;
 
 public class Flight{
 	private String airline;
-	private int departureTerminal;
+	private int terminal;
 	private String flightId;
 	private String arrivalName;
 	private String departureName;
@@ -16,9 +16,9 @@ public class Flight{
 
 	public Flight(String airline, String arrivalName, String departureName,  LocalTime departureTime,LocalTime arrivalTime,
 			LocalDate departureDate,LocalDate arrivalDate, 
-			int departureTerminal, String flightId) {
+			int terminal, String flightId) {
 		this.airline = airline;
-		this.departureTerminal = departureTerminal;
+		this.terminal = terminal;
 		this.flightId = flightId;
 		this.arrivalName = arrivalName;
 		this.departureName = departureName;
@@ -29,7 +29,7 @@ public class Flight{
 			
 	}
 	public Flight(Flight flight) {
-		this.departureTerminal = flight.getDepartureTerminal();
+		this.terminal = flight.getDepartureTerminal();
 		this.flightId = flight.getFlightId();
 		this.arrivalName = flight.getArrivalName();
 		this.departureName = flight.getDepartureName();
@@ -69,11 +69,11 @@ public class Flight{
 	}
 
 	public int getDepartureTerminal() {
-		return this.departureTerminal;
+		return this.terminal;
 	}
 
 	public void setDepartureTerminal(int departureTerminal) {
-		this.departureTerminal = departureTerminal;
+		this.terminal = departureTerminal;
 	}
 	
 	public String getAirline() {
@@ -88,8 +88,8 @@ public class Flight{
 
 	@Override
 	public String toString() {
-		return "Flight: " +  flightId+ ", Airline:"+this.airline+ ", Departure : " + arrivalName + ", Arrival: " + departureName + " , Departure Time: " +departureDate.getDayOfMonth()+"/"+departureDate.getMonthValue()+"/"+departureDate.getYear()+" at "+ arrivalTime 
-				+ ", Arrival Time: "+arrivalDate.getDayOfMonth()+"/"+arrivalDate.getMonthValue()+"/"+arrivalDate.getYear()+" at "+ departureTime + "\n";
+		return "Flight: " +  flightId+ ", Airline:"+this.airline+ ", Departure : " + departureName + ", Arrival: " + arrivalName + " , Departure Time: " +departureDate.getDayOfMonth()+"/"+departureDate.getMonthValue()+"/"+departureDate.getYear()+" at "+ departureTime 
+				+ ", Arrival Time: "+arrivalDate.getDayOfMonth()+"/"+arrivalDate.getMonthValue()+"/"+arrivalDate.getYear()+" at "+ arrivalTime + "\n";
 	}
 
 }

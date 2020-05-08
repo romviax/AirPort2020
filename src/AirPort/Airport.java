@@ -18,6 +18,13 @@ public class Airport {
 	public Arrivals getArrival() {
 		return this.myArrivals;
 	}
+	
+	public void addFlight(Flight flight) {
+		if(flight.getDepartureName().equals("Israel"))
+			getDeparture().addFlight(flight);
+		else
+			getArrival().addFlight(flight);
+	}
 
 	@Override
 	public String toString() {

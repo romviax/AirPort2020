@@ -39,7 +39,7 @@ public class Main {
 	}
 
 	public static boolean isValidFlightId(String id) {
-		if(id.length()<5 || id.length()>5)
+		if(id.length()!=5)
 			return false;
 		if(id.charAt(0)< 'A' ||id.charAt(0) > 'Z' )
 			return false;
@@ -170,34 +170,62 @@ public class Main {
 				System.out.println("Wrong timing. NOTE:The Arrival cannot be before the Departure");
 		}
 
-		Flight newFlight=new Flight(name, arrivalName, departureName, departureTime, arrivalTime, departureDate, arrivalDate, terminal, flightId);
-		if(departureName.equals("Israel"))
-			airport.getDeparture().addFlight(newFlight);
-		else
-			airport.getArrival().addFlight(newFlight);
+		airport.addFlight(new Flight(name, arrivalName, departureName, departureTime, arrivalTime, departureDate, arrivalDate, terminal, flightId));
+
 	}
 
 
 	public static void main(String[] args) {
-
-
 		Scanner scan = new Scanner(System.in);	
 		Airport airport = new Airport("Ben Gurion");
-		LocalDate arrivalTime = LocalDate.of(2020, 5, 20);
+		LocalDate arrivalDate = LocalDate.of(2020, 5, 20);
 		LocalDate departureDate1 = LocalDate.of(2020, 5, 19);
 		LocalTime departureTime1= LocalTime.of(19, 30);
 		LocalTime departureTime2= LocalTime.of(19, 20);
 		LocalTime arrivalTime1= LocalTime.of(20, 30);
 		LocalTime arrivalTime2= LocalTime.of(20, 20);
-		Flight f1 = new Flight("El-al", "New York", "Israel", arrivalTime1, departureTime1,departureDate1,arrivalTime,3, "LY365");
-		Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel", arrivalTime1, departureTime1,LocalDate.of(2020, 6, 19),LocalDate.of(2020, 3, 20),3, "IL231");
-		Flight f3 = new Flight("Transvania", "Jordan", "Israel", arrivalTime2, departureTime2,LocalDate.of(2020, 4, 14),LocalDate.of(2020,3, 20),3, "NY786");
+		Flight f1 = new Flight("El-al", "New York", "Israel", arrivalTime1, departureTime1,departureDate1,arrivalDate,3, "LY365");
+		Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel", arrivalTime1, departureTime1,LocalDate.of(2020, 3, 19),LocalDate.of(2020, 3, 20),3, "IL231");
+		Flight f3 = new Flight("Transvania", "Jordan", "Israel", arrivalTime2, departureTime2,LocalDate.of(2020, 4, 14),LocalDate.of(2020,4, 17),3, "NY786");
+		Flight f4 = new Flight("StarAir", "Israel", "New York", LocalTime.of(20, 20), LocalTime.of(14, 02),LocalDate.of(2020, 4, 18),LocalDate.of(2020,4, 20),3, "SA154");
+		Flight f5 = new Flight("EL AL", "Israel", "Germany", LocalTime.of(8, 20), LocalTime.of(19, 02),LocalDate.of(2020, 4, 25),LocalDate.of(2020,4, 25),3, "FA194");
 
-		airport.getDeparture().addFlight(f1);
-		airport.getDeparture().addFlight(f2);
-		airport.getDeparture().addFlight(f3);
-		airport.getDeparture().sort();
-		addFlight(airport);
+		airport.addFlight(f1);
+		airport.addFlight(f2);
+		airport.addFlight(f3);
+		airport.addFlight(f4);
+		airport.addFlight(f5);
+
+		StringBuffer menu=new StringBuffer();
+		menu.append("\n1--- Add a new Flight \n");
+		menu.append("2--- Show departures\n");
+		menu.append("3--- Show arrivals\n");
+		menu.append("4--- Show all Flights");
+
+		System.out.println("Welcome to Ben Gurion Airport!");
+		int select=0;
+		while(select!=9) {
+			System.out.println(menu.toString());
+			select=scan.nextInt();
+			switch (select) {
+			case 1:
+				addFlight(airport);
+				break;
+			case 2:
+				System.out.println("\n---Departures---\n"+airport.getDeparture().toString());
+				break;
+			case 3:
+				System.out.println("\n---Arrivals---\n"+airport.getArrival().toString());
+				break;
+			case 4:
+				System.out.println(airport.toString());
+				break;
+			default:
+				break;
+			}
+		}
+		System.out.println("Goodbye");
+
 
 	}
 
