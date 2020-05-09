@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
-import com.sun.glass.ui.Pixels.Format;
-
-import javafx.util.converter.LocalDateStringConverter;
 
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -42,6 +39,8 @@ public class Main {
 	public static boolean isValidFlightId(String id) {
 		if(id.length()!=5)
 			return false;
+//		String temp = id.substring(0, 1);  //we can use this form of writing
+//		temp.matches("A-Z");							//same can be done for the ints
 		if(id.charAt(0)< 'A' ||id.charAt(0) > 'Z' )
 			return false;
 		if(id.charAt(1)< 'A' ||id.charAt(1) > 'Z' )
