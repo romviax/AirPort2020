@@ -14,6 +14,7 @@ public class Arrivals {
 			myFlights=Arrays.copyOf(myFlights, myFlights.length*2);
 		this.myFlights[this.flightIndex] = new Flight(flight);
 		this.flightIndex++;
+		sort();
 	}
 
 	public void removeFlight(Flight flight) {
@@ -26,10 +27,15 @@ public class Arrivals {
 			System.arraycopy(this.myFlights, index + 1, this.myFlights, index,
 					this.myFlights.length - 1 - index);
 		}
+		sort();
 	}
 	
 	public void sort() {
 		Arrays.sort(myFlights, new CompareFlightArrivals());
+	}
+	
+	public Flight[] getFlights() {
+		return myFlights;
 	}
 
 	public String toString() {
@@ -41,5 +47,6 @@ public class Arrivals {
 		}
 		return sb.toString();
 	}
+
 
 }

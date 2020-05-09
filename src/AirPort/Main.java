@@ -2,6 +2,7 @@ package AirPort;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -173,7 +174,55 @@ public class Main {
 		airport.addFlight(new Flight(name, arrivalName, departureName, departureTime, arrivalTime, departureDate, arrivalDate, terminal, flightId));
 
 	}
+	
+	public static ArrayList<Flight> searchByDate(Airport airport, int ArrivOrDepart) {
+		// if ArrivOrDepart=1 ----> Search on Arrivals
+		// if ArrivOrDepart=0 ----> Search on Departures
+		Scanner scan=new Scanner(System.in);
+		LocalDate highDate=null;
+		LocalDate lowDate=null;
+		
+		// High date & low date. Compared and check.
+		System.out.println("NOTE:The HighDate cannot be before the LowDate");
+		boolean compareHighToLow=false;
+		while(compareHighToLow==false) {
+			String date="";
+			boolean validFormat=false;
+			while(validFormat==false) {
+				System.out.println("Eneter the lower date of the search: (DD/MM/YYYY)");
+				date= scan.next();
+				validFormat=isValidFormat("dd/MM/yyyy", date, Locale.ENGLISH);
+				if(validFormat==false)
+					System.out.println("Wrong date. Please try again.");
+			}
+			String[] splitDate=date.split("/");
+			lowDate=LocalDate.of(Integer.parseInt(splitDate[2]),Integer.parseInt(splitDate[1]),Integer.parseInt(splitDate[0]));
+			scan.nextLine();
+			
+			validFormat=false;
+			while(validFormat==false) {
+				System.out.println("Eneter the higher date of the search: (DD/MM/YYYY)");
+				date= scan.next();
+				validFormat=isValidFormat("dd/MM/yyyy", date, Locale.ENGLISH);
+				if(validFormat==false)
+					System.out.println("Wrong date. Please try again.");
+			}
+			splitDate=date.split("/");
+			highDate=LocalDate.of(Integer.parseInt(splitDate[2]),Integer.parseInt(splitDate[1]),Integer.parseInt(splitDate[0]));
 
+			if(highDate.compareTo(lowDate)<0)
+				System.out.println("The higher date cannot be before the lower date! Try again.");
+			else
+				compareHighToLow=true;
+				
+		}
+		if(ArrivOrDepart==1)
+			return airport.searchArrivalsByDate(airport.getArrival().getFlights(), lowDate, highDate);
+		else
+			return airport.searchArrivalsByDate(airport.getDeparture().getFlights(), lowDate, highDate);
+
+		
+	}
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);	
@@ -200,10 +249,15 @@ public class Main {
 		menu.append("\n1--- Add a new Flight \n");
 		menu.append("2--- Show departures\n");
 		menu.append("3--- Show arrivals\n");
-		menu.append("4--- Show all Flights");
+		menu.append("4--- Show all Flights\n");
+		menu.append("5--- Search Arrivals within dates\n");
+		menu.append("6--- Search Departures within dates\n");
+
+
 
 		System.out.println("Welcome to Ben Gurion Airport!");
 		int select=0;
+		ArrayList<Flight> results;
 		while(select!=9) {
 			System.out.println(menu.toString());
 			select=scan.nextInt();
@@ -220,6 +274,18 @@ public class Main {
 			case 4:
 				System.out.println(airport.toString());
 				break;
+			case 5:
+				results=searchByDate(airport, 1);
+				for(Flight flight: results)
+					System.out.println(flight.toString());
+				break;
+			case 6:
+				results=searchByDate(airport, 0);
+				for(Flight flight: results)
+					System.out.println(flight.toString());
+				break;
+
+				
 			default:
 				break;
 			}
