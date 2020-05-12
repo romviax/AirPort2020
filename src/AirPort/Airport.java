@@ -31,16 +31,16 @@ public class Airport {
 		ArrayList<Flight> results=new ArrayList<Flight>();
 		for(int i=0;i<arrivals.length;i++)
 			if(arrivals[i]!=null)
-				if((arrivals[i].getArrivalDate().compareTo(lowDate)>=0) && (arrivals[i].getArrivalDate().compareTo(highDate)<=0))
+				if((arrivals[i].getDate().compareTo(lowDate)>=0) && (arrivals[i].getDate().compareTo(highDate)<=0))
 					results.add(arrivals[i]);
 		return results;
 	}
 
-	public ArrayList<Flight> searchDeparturesByDate(Flight[] departures,LocalDate lowDate, LocalDate highDate){
+	public ArrayList<Flight> searchDeparturesByDate(Flight[] flightArray,LocalDate lowDate, LocalDate highDate){
 		ArrayList<Flight> results=new ArrayList<Flight>();
-		for(int i=0;i<departures.length;i++)
-			if((departures[i].getDepartureDate().compareTo(lowDate)>=0) && (departures[i].getDepartureDate().compareTo(highDate)<=0))
-				results.add(departures[i]);
+		for(int i=0;i<flightArray.length;i++)
+			if((flightArray[i].getDate().compareTo(lowDate)>=0) && (flightArray[i].getDate().compareTo(highDate)<=0))
+				results.add(flightArray[i]);
 		return results;
 	}
 

@@ -33,11 +33,21 @@ public class Departures {
 		sort();
 	}
 	public void sort() {
-		Arrays.sort(myFlights, new CompareFlightDeparture());
+		Arrays.sort(myFlights, new CompareFlightByDate());
 	}
 	
 	public Flight[] getFlights() {
 		return myFlights;
+	}
+	
+	public Flight getFlightById(String id) {
+		for (Flight flight : myFlights) {
+			if (flight instanceof Flight) {
+				if (flight.getFlightId().equals(id))
+					return flight;
+			}
+		}
+		return null; // no such flight
 	}
 
 	public String toString() {

@@ -1,42 +1,42 @@
 package AirPort;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Flight{
+public class Flight {
 	private String airline;
 	private int terminal;
 	private String flightId;
-	private String arrivalName;
-	private String departureName;
-	private LocalTime arrivalTime;
-	private LocalDate departureDate;
-	private LocalDate arrivalDate;
-	private LocalTime departureTime;
+	private String comeingFrom;
+	private String goingTo;
+	private LocalTime time;
+	private LocalDate date;
+//	private LocalDate arrivalDate;
+//	private LocalTime departureTime;
 
-
-	public Flight(String airline, String arrivalName, String departureName,  LocalTime departureTime,LocalTime arrivalTime,
-			LocalDate departureDate,LocalDate arrivalDate, 
-			int terminal, String flightId) {
+	public Flight(String airline, String comingFrom, String goingTo, LocalTime time, LocalDate date, int terminal,
+			String flightId) {
 		this.airline = airline;
 		this.terminal = terminal;
 		this.flightId = flightId;
-		this.arrivalName = arrivalName;
-		this.departureName = departureName;
-		this.arrivalTime = arrivalTime;
-		this.departureTime = departureTime;
-		this.departureDate = departureDate;
-		this.arrivalDate = arrivalDate;
-			
+		this.comeingFrom = comingFrom;
+		this.goingTo = goingTo;
+		this.time = time;
+//		this.departureTime = departureTime;
+		this.date = date;
+//		this.arrivalDate = arrivalDate;
+
 	}
+
 	public Flight(Flight flight) {
 		this.terminal = flight.getDepartureTerminal();
 		this.flightId = flight.getFlightId();
-		this.arrivalName = flight.getArrivalName();
-		this.departureName = flight.getDepartureName();
-		this.arrivalTime = flight.getArrivalTime();
-		this.departureTime = flight.getDepartureTime();
-		this.arrivalDate = flight.getArrivalDate();
-		this.departureDate = flight.getDepartureDate();
+		this.comeingFrom = flight.getArrivalName();
+		this.goingTo = flight.getDepartureName();
+		this.time = flight.getTime();
+//		this.departureTime = flight.getDepartureTime();
+//		this.arrivalDate = flight.getArrivalDate();
+		this.date = flight.getDate();
 		this.airline = flight.getAirline();
 	}
 
@@ -45,27 +45,27 @@ public class Flight{
 	}
 
 	public String getArrivalName() {
-		return arrivalName;
+		return comeingFrom;
 	}
 
 	public String getDepartureName() {
-		return departureName;
+		return goingTo;
 	}
 
-	public LocalTime getArrivalTime() {
-		return arrivalTime;
+	public LocalTime getTime() {
+		return time;
 	}
 
-	public LocalTime getDepartureTime() {
-		return departureTime;
-	}
-	
-	public LocalDate getArrivalDate() {
-		return arrivalDate;
-	}
-	
-	public LocalDate getDepartureDate() {
-		return departureDate;
+//	public LocalTime getDepartureTime() {
+//		return departureTime;
+//	}
+//	
+//	public LocalDate getArrivalDate() {
+//		return arrivalDate;
+//	}
+
+	public LocalDate getDate() {
+		return date;
 	}
 
 	public int getDepartureTerminal() {
@@ -75,21 +75,23 @@ public class Flight{
 	public void setDepartureTerminal(int departureTerminal) {
 		this.terminal = departureTerminal;
 	}
-	
+
 	public String getAirline() {
 		return this.airline;
 	}
-	public boolean equals (Object other) {
-		if(!(other instanceof Flight))
+
+	public boolean equals(Object other) {
+		if (!(other instanceof Flight))
 			return false;
-		Flight temp=(Flight)other;
-		return flightId==temp.getFlightId() && airline.equals(temp.getAirline());
+		Flight temp = (Flight) other;
+		return flightId == temp.getFlightId() && airline.equals(temp.getAirline());
 	}
 
 	@Override
 	public String toString() {
-		return "Flight: " +  flightId+ ", Airline:"+this.airline+ ", Departure : " + departureName + ", Arrival: " + arrivalName + " , Departure Time: " +departureDate.getDayOfMonth()+"/"+departureDate.getMonthValue()+"/"+departureDate.getYear()+" at "+ departureTime 
-				+ ", Arrival Time: "+arrivalDate.getDayOfMonth()+"/"+arrivalDate.getMonthValue()+"/"+arrivalDate.getYear()+" at "+ arrivalTime + "\n";
+		return "Flight: " + flightId + ", Airline:" + this.airline + ", Departure : " + goingTo + ", Arrival: "
+				+ comeingFrom + " , Departure Time: " + date.getDayOfMonth() + "/" + date.getMonthValue() + "/"
+				+ date.getYear() + " at " + ", Arrival Time: " + " at " + time + "\n";
 	}
 
 }
