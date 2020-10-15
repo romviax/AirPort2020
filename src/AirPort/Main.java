@@ -42,8 +42,8 @@ public class Main {
 	public static boolean isValidFlightId(String id) {
 		if (id.length() != 5)
 			return false;
-//		String temp = id.substring(0, 1);  //we can use this form of writing
-//		temp.matches("A-Z");							//same can be done for the ints
+		//		String temp = id.substring(0, 1);  //we can use this form of writing
+		//		temp.matches("A-Z");							//same can be done for the ints
 		if (id.charAt(0) < 'A' || id.charAt(0) > 'Z')
 			return false;
 		if (id.charAt(1) < 'A' || id.charAt(1) > 'Z')
@@ -57,9 +57,16 @@ public class Main {
 		return true;
 	}
 
+	public static boolean isValidDay(String day) {
+		if((day.equalsIgnoreCase("sunday")) || (day.equalsIgnoreCase("monday")) ||(day.equalsIgnoreCase("tuesday"))|| (day.equalsIgnoreCase("wednesday"))|| (day.equalsIgnoreCase("thursday"))||(day.equalsIgnoreCase("friday"))||(day.equalsIgnoreCase("saturday")))
+			return true;
+		else
+			return false;
+
+	}
 	public static void addFlight(Airport airport) {
 		Scanner scan = new Scanner(System.in);
-		String name = "", goingTo = "", comingFrom = "", flightId = "";
+		String name = "", goingTo = "", comingFrom = "", flightId = "", port="", city="", weekday="";
 		LocalTime timee = null, arrivalTime = null;
 		LocalDate datee = null, arrivalDate = null;
 		int terminal = 0;
@@ -107,13 +114,49 @@ public class Main {
 			}
 			if (!goingTo.equals("Israel") && !comingFrom.equals("Israel"))
 				System.out.println("one of the destinations has to be Israel.");
-			else
+			else {
+				goingTo=goingTo.replace(" ", "-");
+				comingFrom=comingFrom.replace(" ", "-");
+
 				validDest = true;
+			}
+
 		}
 		scan.nextLine();
 
-		// Departure date & Arrival date. compared and check.
-		System.out.println("NOTE:The Arrival cannot be before the Departure");
+		//Port.
+		System.out.println("Eneter the port that the flight departures:");
+		port=scan.next();
+		port=port.replace(" ", "-");
+		scan.nextLine();
+
+		//City.
+		System.out.println("Eneter the city of the port:");
+		city=scan.next();
+		city=city.replace(" ", "-");
+		scan.nextLine();
+
+		//Weekday.
+		boolean validDay=false;
+		if(goingTo.equals("Israel"))
+			while(validDay==false) {
+				System.out.println("Enter the day the flight arrives:(must be a valid weekday)");
+				weekday=scan.next();
+				validDay=isValidDay(weekday);
+			}
+
+		else
+			while(validDay==false) {
+				System.out.println("Enter the day the flight departures:(must be a valid weekday)");
+				weekday=scan.next();
+				validDay=isValidDay(weekday);
+			}
+	
+
+
+
+			// Departure date & Arrival date. compared and check.
+			System.out.println("NOTE:The Arrival cannot be before the Departure");
 		String date = "";
 		boolean validFormat = false;
 		while (validFormat == false) {
@@ -140,7 +183,7 @@ public class Main {
 		String[] splitTime = time.split(":");
 		timee = LocalTime.of(Integer.parseInt(splitTime[0]), Integer.parseInt(splitTime[1]));
 
-		airport.addFlight(new Flight(name, goingTo, comingFrom, timee, datee, terminal, flightId));
+		airport.addFlight(new Flight(name, goingTo, comingFrom,port, city,weekday, timee, datee, terminal, flightId));
 
 	}
 
@@ -196,35 +239,35 @@ public class Main {
 
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner scan = new Scanner(System.in);
-//		Airport airport = new Airport("Ben Gurion");
-//		LocalDate date1 = LocalDate.of(2020, 5, 20);
-//		LocalDate date2 = LocalDate.of(2020, 4, 20);
-//		LocalDate date3 = LocalDate.of(2020, 3, 20);
-//		LocalDate date4 = LocalDate.of(2020, 4, 17);
-//		LocalDate date5 = LocalDate.of(2020, 4, 25);
-//		LocalTime time1 = LocalTime.of(14, 02);
-//		LocalTime time2 = LocalTime.of(19, 02);
-//		LocalTime time3 = LocalTime.of(20, 30);
-//		LocalTime time4 = LocalTime.of(20, 20);
-//		Flight f1 = new Flight("El-Al", "New-York", "Israel", time3, date1, 3, "LY365");
-//		Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel", time3, date3, 3, "IL231");
-//		Flight f3 = new Flight("Transvania", "Jordan", "Israel", time4, date4, 3, "NY786");
-//		Flight f4 = new Flight("StarAir", "Israel", "New-York", time1, date2, 3, "SA154");
-//		Flight f5 = new Flight("EL-AL", "Israel", "Germany", time2, date5, 3, "FA194");
-//
-//		airport.addFlight(f1);
-//		airport.addFlight(f2);
-//		airport.addFlight(f3);
-//		airport.addFlight(f4);
-//		airport.addFlight(f5);
-//		
-//
-//		
-//		airport.save("Natbag2020");
-		File airportFile=new File("Natbag2020");
-		Scanner load=new Scanner(airportFile);
-		Airport airport=new Airport(load);
+				Airport airport = new Airport("Ben Gurion");
+				LocalDate date1 = LocalDate.of(2020, 5, 20);
+				LocalDate date2 = LocalDate.of(2020, 4, 20);
+				LocalDate date3 = LocalDate.of(2020, 3, 20);
+				LocalDate date4 = LocalDate.of(2020, 4, 17);
+				LocalDate date5 = LocalDate.of(2020, 4, 25);
+				LocalTime time1 = LocalTime.of(14, 02);
+				LocalTime time2 = LocalTime.of(19, 02);
+				LocalTime time3 = LocalTime.of(20, 30);
+				LocalTime time4 = LocalTime.of(20, 20);
+				Flight f1 = new Flight("El-Al", "New-York", "Israel","JFK", "New-York", "Monday", time3, date1, 3, "LY365");
+				Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel","BDS", "Atlanta", "sunday", time3, date3, 3, "IL231");
+				Flight f3 = new Flight("Transvania", "Jordan", "Israel","PTA", "Petra", "saturday", time4, date4, 3, "NY786");
+				Flight f4 = new Flight("StarAir", "Israel", "New-York","JFK", "New-York", "friday", time1, date2, 3, "SA154");
+				Flight f5 = new Flight("EL-AL", "Israel", "Germany","SNF", "Berlin", "wednesday", time2, date5, 3, "FA194");
 		
+				airport.addFlight(f1);
+				airport.addFlight(f2);
+				airport.addFlight(f3);
+				airport.addFlight(f4);
+				airport.addFlight(f5);
+				
+		
+				
+				airport.save("Natbag2020");
+//		File airportFile=new File("Natbag2020");
+//		Scanner load=new Scanner(airportFile);
+//		Airport airport=new Airport(load);
+
 
 
 		StringBuffer menu = new StringBuffer();

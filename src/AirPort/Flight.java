@@ -6,7 +6,7 @@ import java.time.LocalTime;
 import java.util.Scanner;
 
 public class Flight {
-	private String airline;
+	private String airline, port, city, weekday;
 	private int terminal;
 	private String flightId;
 	private String comingFrom;
@@ -15,8 +15,11 @@ public class Flight {
 	private LocalDate date;
 
 
-	public Flight(String airline, String comingFrom, String goingTo, LocalTime time, LocalDate date, int terminal,
+	public Flight(String airline, String  goingTo, String comingFrom, String port, String city,String weekday, LocalTime time, LocalDate date, int terminal,
 			String flightId) {
+		this.port=port;
+		this.city=city;
+		this.weekday=weekday;
 		this.airline = airline;
 		this.terminal = terminal;
 		this.flightId = flightId;
@@ -29,7 +32,7 @@ public class Flight {
 	public Flight(Scanner scan) {
 		String line="";
 		String[] info;
-		for( int i=0;i<7;i++) {
+		for( int i=0;i<10;i++) {
 			line+=scan.next();
 		}
 		
@@ -41,10 +44,15 @@ public class Flight {
 		 this.date=LocalDate.parse(info[4]);
 		 this.terminal=Integer.parseInt(info[5]);
 		 this.flightId=info[6];
-		
+		 this.port=info[7];
+		 this.city=info[8];
+		 this.weekday=info[9];
 		
 	}
 	public Flight(Flight flight) {
+		this.port=flight.getPort();
+		this.city=flight.getCity();
+		this.weekday=flight.getWeekday();
 		this.terminal = flight.getDepartureTerminal();
 		this.flightId = flight.getFlightId();
 		this.comingFrom = flight.getArrivalName();
@@ -53,6 +61,15 @@ public class Flight {
 		this.date = flight.getDate();
 		this.airline = flight.getAirline();
 	}
+	public String getPort() {
+		return this.port;
+	}
+	 public String getCity() {
+		 return this.city;
+	 }
+	 public String getWeekday() {
+		 return this.weekday;
+	 }
 
 	public String getFlightId() {
 		return flightId;
@@ -101,13 +118,16 @@ public class Flight {
 		pw.print(this.date.toString()+", ");
 		pw.print(this.terminal+", ");
 		pw.print(this.flightId+", ");
+		pw.print(this.port+", ");
+		pw.print(this.city+", ");
+		pw.print(this.weekday+", ");
 		pw.println();
 
 	}
 
 	@Override
 	public String toString() {
-		return "Flight: " + flightId + ", Airline:" + this.airline + ", Departure : " + goingTo + ", Arrival: "
+		return "Flight: " + flightId + ", Airline:" + this.airline + ",  Arrival: " + goingTo + ", Departure: "
 				+ comingFrom + " , Departure: " + date.getDayOfMonth() + "/" + date.getMonthValue() + "/"
 				+ date.getYear() + ", Arrival Time: "  + time + "\n";
 	}

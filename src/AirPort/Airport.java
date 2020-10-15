@@ -70,6 +70,7 @@ public class Airport {
 		return results;
 	}
 
+
 	@Override
 	public String toString() {
 		return "Airport:\n" + airportName+ "\n----Departures----\n" + myDepartures.toString() + "\n----Arrivals----\n" + myArrivals.toString();
