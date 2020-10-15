@@ -1,4 +1,5 @@
 package AirPort;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 
@@ -9,6 +10,12 @@ public class Departures {
 
 	public Departures(int numOfFlights) {
 		this.myFlights = new Flight[numOfFlights];
+	}
+	public void save(PrintWriter pw) {
+		for(Flight flight: myFlights) {
+			if(flight!=null)
+				flight.save(pw);
+		}
 	}
 
 	public void addFlight(Flight flight) {
@@ -48,6 +55,10 @@ public class Departures {
 			}
 		}
 		return null; // no such flight
+	}
+	
+	public int getNumOfFlights() {
+		return flightIndex;
 	}
 
 	public String toString() {

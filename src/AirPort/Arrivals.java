@@ -1,8 +1,8 @@
 package AirPort;
 
+import java.io.PrintWriter;
 import java.util.Arrays;
 
-import org.hamcrest.core.IsInstanceOf;
 
 public class Arrivals {
 	private Flight[] myFlights;
@@ -10,6 +10,13 @@ public class Arrivals {
 
 	public Arrivals(int numOfFlights) {
 		this.myFlights = new Flight[numOfFlights];
+	}
+	
+	public void save(PrintWriter pw) {
+		for(Flight flight: myFlights) {
+			if(flight!=null)
+				flight.save(pw);
+		}
 	}
 
 	public void addFlight(Flight flight) {
@@ -48,6 +55,10 @@ public class Arrivals {
 			}
 		}
 		return null; // no such flight
+	}
+	
+	public int getNumOfFlights() {
+		return flightIndex;
 	}
 
 	public String toString() {

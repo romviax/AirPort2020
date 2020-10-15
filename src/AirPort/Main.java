@@ -1,5 +1,7 @@
 package AirPort;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -129,7 +131,7 @@ public class Main {
 		String time = "";
 		validFormat = false;
 		while (validFormat == false) {
-			System.out.println("Enter the time of departure: (HH:MM)");
+			System.out.println("Enter the time of arrival: (HH:MM)");
 			time = scan.next();
 			validFormat = isValidFormat("hh:mm", time, Locale.ENGLISH);
 			if (validFormat == false)
@@ -192,29 +194,38 @@ public class Main {
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Scanner scan = new Scanner(System.in);
-		Airport airport = new Airport("Ben Gurion");
-		LocalDate date1 = LocalDate.of(2020, 5, 20);
-		LocalDate date2 = LocalDate.of(2020, 4, 20);
-		LocalDate date3 = LocalDate.of(2020, 3, 20);
-		LocalDate date4 = LocalDate.of(2020, 4, 17);
-		LocalDate date5 = LocalDate.of(2020, 4, 25);
-		LocalTime time1 = LocalTime.of(14, 02);
-		LocalTime time2 = LocalTime.of(19, 02);
-		LocalTime time3 = LocalTime.of(20, 30);
-		LocalTime time4 = LocalTime.of(20, 20);
-		Flight f1 = new Flight("El-al", "New York", "Israel", time3, date1, 3, "LY365");
-		Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel", time3, date3, 3, "IL231");
-		Flight f3 = new Flight("Transvania", "Jordan", "Israel", time4, date4, 3, "NY786");
-		Flight f4 = new Flight("StarAir", "Israel", "New York", time1, date2, 3, "SA154");
-		Flight f5 = new Flight("EL AL", "Israel", "Germany", time2, date5, 3, "FA194");
+//		Airport airport = new Airport("Ben Gurion");
+//		LocalDate date1 = LocalDate.of(2020, 5, 20);
+//		LocalDate date2 = LocalDate.of(2020, 4, 20);
+//		LocalDate date3 = LocalDate.of(2020, 3, 20);
+//		LocalDate date4 = LocalDate.of(2020, 4, 17);
+//		LocalDate date5 = LocalDate.of(2020, 4, 25);
+//		LocalTime time1 = LocalTime.of(14, 02);
+//		LocalTime time2 = LocalTime.of(19, 02);
+//		LocalTime time3 = LocalTime.of(20, 30);
+//		LocalTime time4 = LocalTime.of(20, 20);
+//		Flight f1 = new Flight("El-Al", "New-York", "Israel", time3, date1, 3, "LY365");
+//		Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel", time3, date3, 3, "IL231");
+//		Flight f3 = new Flight("Transvania", "Jordan", "Israel", time4, date4, 3, "NY786");
+//		Flight f4 = new Flight("StarAir", "Israel", "New-York", time1, date2, 3, "SA154");
+//		Flight f5 = new Flight("EL-AL", "Israel", "Germany", time2, date5, 3, "FA194");
+//
+//		airport.addFlight(f1);
+//		airport.addFlight(f2);
+//		airport.addFlight(f3);
+//		airport.addFlight(f4);
+//		airport.addFlight(f5);
+//		
+//
+//		
+//		airport.save("Natbag2020");
+		File airportFile=new File("Natbag2020");
+		Scanner load=new Scanner(airportFile);
+		Airport airport=new Airport(load);
+		
 
-		airport.addFlight(f1);
-		airport.addFlight(f2);
-		airport.addFlight(f3);
-		airport.addFlight(f4);
-		airport.addFlight(f5);
 
 		StringBuffer menu = new StringBuffer();
 		menu.append("\n1--- Add a new Flight \n");
@@ -233,12 +244,14 @@ public class Main {
 			switch (select) {
 			case 1:
 				addFlight(airport);
+				airport.save("Natbag2020");
 				break;
 			case 2:
 				System.out.println("\n---Departures---\n" + airport.getDeparture().toString());
 				break;
 			case 3:
 				System.out.println("\n---Arrivals---\n" + airport.getArrival().toString());
+
 				break;
 			case 4:
 				System.out.println(airport.toString());

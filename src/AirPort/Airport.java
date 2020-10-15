@@ -1,7 +1,11 @@
 package AirPort;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Airport {
 	private Departures myDepartures;
@@ -13,6 +17,28 @@ public class Airport {
 		this.airportName = name;
 		this.myDepartures = new Departures(10);
 		this.myArrivals = new Arrivals(10);
+	}
+	public Airport(Scanner scan) {
+		this.myDepartures = new Departures(10);
+		this.myArrivals = new Arrivals(10);
+		
+		this.airportName=scan.nextLine();
+		int numOfFlights=scan.nextInt();
+		for(int i=0;i<numOfFlights;i++) {
+			addFlight(new Flight(scan));
+		}
+	}
+	
+	public void save(String fileName) throws FileNotFoundException {
+		File save=new File(fileName);
+		PrintWriter pw=new PrintWriter(save);
+		int numOfFlights=myDepartures.getNumOfFlights() + myArrivals.getNumOfFlights();
+		pw.println(this.airportName);
+		pw.println(numOfFlights);
+		myDepartures.save(pw);
+		myArrivals.save(pw);
+		
+		pw.close();
 	}
 	public Departures getDeparture() {
 		return this.myDepartures;

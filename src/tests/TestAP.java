@@ -10,6 +10,7 @@ import AirPort.Flight;
 import junit.framework.TestCase;
 
 public class TestAP extends TestCase {
+	
 	Airport ap = new Airport("Ben-Gurion");
 	LocalDate date1 = LocalDate.of(2020, 5, 20);
 	LocalDate date2 = LocalDate.of(2020, 4, 20);
@@ -32,7 +33,7 @@ public class TestAP extends TestCase {
 		assertTrue(ap.getArrival().getFlightById("SA154").toString().equals(
 				"Flight: SA154, Airline:StarAir, Departure : New York, Arrival: Israel , Departure Time: 18/4/2020 at 20:20, Arrival Time: 20/4/2020 at 14:02\n"));
 	}
-
+	
 	@Test
 	public void addOutFlightTest() {
 		ap.addFlight(f2);
