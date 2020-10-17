@@ -21,24 +21,24 @@ public class TestAP extends TestCase {
 	LocalTime time2 = LocalTime.of(19, 02);
 	LocalTime time3 = LocalTime.of(20, 30);
 	LocalTime time4 = LocalTime.of(20, 20);
-	Flight f1 = new Flight("El-al", "New York", "Israel", time3, date1, 3, "LY365");
-	Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel", time3, date3, 3, "IL231");
-	Flight f3 = new Flight("Transvania", "Jordan", "Israel", time4, date4, 3, "NY786");
-	Flight f4 = new Flight("StarAir", "Israel", "New York", time1, date2, 3, "SA154");
-	Flight f5 = new Flight("EL AL", "Israel", "Germany", time2, date5, 3, "FA194");
+	Flight f1 = new Flight("El-Al", "New-York", "Israel","JFK", "New-York", "Monday", time3, date1, 3, "LY365");
+	Flight f2 = new Flight("JesterAirLines", "Alaska", "Israel","BDS", "Atlanta", "sunday", time3, date3, 3, "IL231");
+	Flight f3 = new Flight("Transvania", "Jordan", "Israel","PTA", "Petra", "saturday", time4, date4, 3, "NY786");
+	Flight f4 = new Flight("StarAir", "Israel", "New-York","JFK", "New-York", "friday", time1, date2, 3, "SA154");
+	Flight f5 = new Flight("EL-AL", "Israel", "Germany","SNF", "Berlin", "wednesday", time2, date5, 3, "FA194");
 
 	@Test
-	public void addInFlightTest() {
+	public void addOutFlightTest() {
 		ap.addFlight(f4);
-		assertTrue(ap.getArrival().getFlightById("SA154").toString().equals(
-				"Flight: SA154, Airline:StarAir, Departure : New York, Arrival: Israel , Departure Time: 18/4/2020 at 20:20, Arrival Time: 20/4/2020 at 14:02\n"));
+		assertTrue(ap.getDeparture().getFlightById("SA154").toString().equals(
+				"Flight: SA154, Airline:StarAir,  Departure: Israel, Arrival: New-York, port: JFK, city:New-York , Departures on: 20/4/2020, Arrival Time: 14:02, weekday: friday\n"));
 	}
 	
 	@Test
-	public void addOutFlightTest() {
+	public void addInFlightTest() {
 		ap.addFlight(f2);
-		assertTrue(ap.getDeparture().getFlightById("IL231").toString().equals(
-				"Flight: IL231, Airline:JesterAirLines, Departure : Israel, Arrival: Alaska , Departure Time: 19/3/2020 at 20:30, Arrival Time: 20/3/2020 at 19:30\n"));
+		assertTrue(ap.getArrival().getFlightById("IL231").toString().equals(
+				"Flight: IL231, Airline:JesterAirLines,  Departure: Alaska, Arrival: Israel, port: BDS, city:Atlanta , Departures on: 20/3/2020, Arrival Time: 20:30, weekday: sunday\n"));
 	}
 
 	@Test

@@ -76,11 +76,11 @@ public class Flight {
 	}
 
 	public String getArrivalName() {
-		return comingFrom;
+		return goingTo;
 	}
 
 	public String getDepartureName() {
-		return goingTo;
+		return comingFrom;
 	}
 
 	public LocalTime getTime() {
@@ -127,9 +127,9 @@ public class Flight {
 
 	@Override
 	public String toString() {
-		return "Flight: " + flightId + ", Airline:" + this.airline + ",  Arrival: " + goingTo + ", Departure: "
-				+ comingFrom + " , Departure: " + date.getDayOfMonth() + "/" + date.getMonthValue() + "/"
-				+ date.getYear() + ", Arrival Time: "  + time + "\n";
+		return "Flight: " + flightId + ", Airline:" + this.airline + ",  Departure: " + goingTo + ", Arrival: "
+				+ comingFrom+", port: "+port+", city:"+city + " , Departures on: " + date.getDayOfMonth() + "/" + date.getMonthValue() + "/"
+				+ date.getYear() + ", Arrival Time: "  + time +", weekday: "+weekday+ "\n";
 	}
 
 }
