@@ -313,6 +313,7 @@ public class Main {
 	}
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner scan = new Scanner(System.in);
+		System.out.println();
 //		Airport airport = new Airport("Ben Gurion");
 //		LocalDate date1 = LocalDate.of(2020, 5, 20);
 //		LocalDate date2 = LocalDate.of(2020, 4, 20);
